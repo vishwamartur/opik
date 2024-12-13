@@ -14,6 +14,7 @@ const generateDefaultPrompt = (
     name: "Prompt",
     messages: [generateDefaultPlaygroundPromptMessage()],
     model: "",
+    configs: {},
     ...configs,
     id: generateRandomString(),
   };
@@ -50,13 +51,20 @@ const PlaygroundPage = () => {
     });
   }, []);
 
-  const handlePromptDuplicate = useCallback((prompt: PlaygroundPromptType) => {
-    setPrompts((ps) => {
-      const newPrompt = generateDefaultPrompt(prompt);
+  const handlePromptDuplicate = useCallback(
+    (prompt: PlaygroundPromptType, position: number) => {
+      setPrompts((ps) => {
+        const newPrompt = generateDefaultPrompt(prompt);
 
-      return [...ps, newPrompt];
-    });
-  }, []);
+        const newPrompts = [...ps];
+
+        newPrompts.splice(position, 0, newPrompt);
+
+        return newPrompts;
+      });
+    },
+    [],
+  );
 
   return (
     <div
@@ -85,6 +93,7 @@ const PlaygroundPage = () => {
             name={prompt.name}
             id={prompt.id}
             key={prompt.id}
+            configs={prompt.configs}
             messages={prompt.messages}
             model={prompt.model}
             onChange={handlePromptChange}
