@@ -17,6 +17,7 @@ interface GetOpenAIStreamParams {
   messages: ProviderMessageType[];
   signal: AbortSignal;
   configs: PlaygroundPromptConfigsType;
+  workspaceName: string;
 }
 
 const getOpenAIStream = async ({
@@ -24,23 +25,26 @@ const getOpenAIStream = async ({
   messages,
   signal,
   configs,
+  workspaceName,
 }: GetOpenAIStreamParams) => {
   const apiKey = window.localStorage.getItem(OPENAI_API_KEY) || "";
 
-  return fetch("https://api.openai.com/v1/chat/completions", {
+  // ALEX
+  return fetch("https://dev.comet.com/opik/api/v1/private/chat/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
+      // Authorization: `Bearer ${apiKey}`,
+      "Comet-Workspace": workspaceName,
     },
     body: JSON.stringify({
       model,
       messages,
       stream: true,
       stream_options: { include_usage: true },
-      ...snakeCaseObj(configs),
+      // ...snakeCaseObj(configs),
     }),
-    signal: signal,
+    signal,
   });
 };
 
@@ -52,6 +56,8 @@ const getResponseError = async (response: Response) => {
   } catch {
     error = "Unexpected error occurred.";
   }
+
+  console.log(error, "ERROR_23e4213");
 
   return error;
 };
@@ -72,6 +78,7 @@ interface UseOpenApiRunStreamingParameters {
   onLoading: (v: boolean) => void;
   onError: (errMsg: string | null) => void;
   configs: PlaygroundPromptConfigsType;
+  workspaceName: string;
 }
 
 const useOpenApiRunStreaming = ({
@@ -81,6 +88,7 @@ const useOpenApiRunStreaming = ({
   onAddChunk,
   onLoading,
   onError,
+  workspaceName,
 }: UseOpenApiRunStreamingParameters) => {
   const abortControllerRef = useRef<AbortController | null>(null);
 
@@ -106,6 +114,7 @@ const useOpenApiRunStreaming = ({
         messages,
         configs,
         signal: abortControllerRef.current?.signal,
+        workspaceName,
       });
 
       if (!response.ok || !response) {

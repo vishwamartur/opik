@@ -16,6 +16,7 @@ export const FEEDBACK_DEFINITIONS_REST_ENDPOINT =
 export const TRACES_REST_ENDPOINT = "/v1/private/traces/";
 export const SPANS_REST_ENDPOINT = "/v1/private/spans/";
 export const PROMPTS_REST_ENDPOINT = "/v1/private/prompts/";
+export const PROVIDER_KEYS_REST_ENDPOINT = "/v1/private/llm-provider-key/";
 
 export const COMPARE_EXPERIMENTS_KEY = "compare-experiments";
 export const SPANS_KEY = "spans";

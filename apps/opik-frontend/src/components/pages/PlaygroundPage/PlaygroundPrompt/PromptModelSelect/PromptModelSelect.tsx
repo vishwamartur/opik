@@ -1,10 +1,9 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import isNull from "lodash/isNull";
 
-import {
-  PLAYGROUND_MODELS,
-  PLAYGROUND_PROVIDERS,
-} from "@/constants/playground";
+import { PLAYGROUND_MODELS } from "@/constants/playground";
+import { PROVIDERS } from "@/constants/providers";
+
 import {
   Select,
   SelectContent,
@@ -19,18 +18,19 @@ import { Button } from "@/components/ui/button";
 import { ChevronRight, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
-import { PLAYGROUND_MODEL, PLAYGROUND_PROVIDER } from "@/types/playground";
+import { PLAYGROUND_MODEL } from "@/types/playground";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import { PROVIDER_TYPE } from "@/types/providers";
 
 interface PromptModelSelectProps {
   value: PLAYGROUND_MODEL | "";
   onChange: (value: PLAYGROUND_MODEL) => void;
-  provider: PLAYGROUND_PROVIDER | "";
+  provider: PROVIDER_TYPE | "";
 }
 
 const PromptModelSelect = ({
@@ -51,7 +51,7 @@ const PromptModelSelect = ({
             label: providerModel.label,
             value: providerModel.value,
           })),
-          icon: PLAYGROUND_PROVIDERS[providerName as PLAYGROUND_PROVIDER].icon,
+          icon: PROVIDERS[providerName as PROVIDER_TYPE].icon,
         };
       },
     );
@@ -188,7 +188,7 @@ const PromptModelSelect = ({
       return null;
     }
 
-    const Icon = PLAYGROUND_PROVIDERS[provider].icon;
+    const Icon = PROVIDERS[provider].icon;
 
     if (!Icon) {
       return null;

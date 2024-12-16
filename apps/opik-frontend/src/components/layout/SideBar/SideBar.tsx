@@ -14,6 +14,7 @@ import {
   FileTerminal,
   LucideHome,
   Blocks,
+  Bolt,
 } from "lucide-react";
 import { keepPreviousData } from "@tanstack/react-query";
 
@@ -299,6 +300,13 @@ const SideBar: React.FunctionComponent<SideBarProps> = ({
             icon: MessageSquare,
             label: "Feedback definitions",
             count: "feedbackDefinitions",
+          },
+          {
+            id: "configuration",
+            path: "/$workspaceName/configuration",
+            type: MENU_ITEM_TYPE.router,
+            icon: Bolt,
+            label: "Configuration",
           },
         ],
       },

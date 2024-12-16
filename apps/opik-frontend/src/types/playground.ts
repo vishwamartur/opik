@@ -1,9 +1,5 @@
 import { UsageType } from "@/types/shared";
 
-export enum PLAYGROUND_PROVIDER {
-  "OpenAI" = "OpenAI",
-}
-
 export enum PLAYGROUND_MODEL {
   // Reasoning Models
   O1_PREVIEW = "o1-preview",

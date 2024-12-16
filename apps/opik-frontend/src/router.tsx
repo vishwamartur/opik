@@ -28,6 +28,7 @@ import RedirectProjects from "@/components/redirect/RedirectProjects";
 import RedirectDatasets from "@/components/redirect/RedirectDatasets";
 import PlaygroundPage from "@/components/pages/PlaygroundPage/PlaygroundPage";
 import useAppStore from "@/store/AppStore";
+import ConfigurationPage from "@/components/pages/ConfigurationPage/ConfigurationPage";
 
 const TanStackRouterDevtools =
   process.env.NODE_ENV === "production"
@@ -270,6 +271,17 @@ const playgroundRoute = createRoute({
   component: PlaygroundPage,
 });
 
+// --------- configuration
+
+const configurationRoute = createRoute({
+  path: "/configuration",
+  getParentRoute: () => workspaceRoute,
+  staticData: {
+    title: "Configuration",
+  },
+  component: ConfigurationPage,
+});
+
 const routeTree = rootRoute.addChildren([
   workspaceGuardPartialLayoutRoute.addChildren([
     quickstartRoute,
@@ -299,6 +311,7 @@ const routeTree = rootRoute.addChildren([
         redirectDatasetsRoute,
       ]),
       playgroundRoute,
+      configurationRoute,
     ]),
   ]),
 ]);

@@ -1,19 +1,11 @@
-import OpenAIIcon from "@/icons/integrations/openai.svg?react";
-import { PLAYGROUND_MODEL, PLAYGROUND_PROVIDER } from "@/types/playground";
+import { PLAYGROUND_MODEL } from "@/types/playground";
+import { PROVIDER_TYPE } from "@/types/providers";
 
 // @ToDo: remove it
 export const OPENAI_API_KEY = "OPENAI_API_KEY";
 
-export const PLAYGROUND_PROVIDERS = {
-  [PLAYGROUND_PROVIDER.OpenAI]: {
-    title: "Open AI",
-    value: PLAYGROUND_PROVIDER.OpenAI,
-    icon: OpenAIIcon,
-  },
-};
-
 export const PLAYGROUND_MODELS = {
-  [PLAYGROUND_PROVIDER.OpenAI]: [
+  [PROVIDER_TYPE.OPEN_AI]: [
     // GPT-4.0 Models
     {
       value: PLAYGROUND_MODEL.GPT_4O,

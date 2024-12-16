@@ -16,6 +16,7 @@ import { getAlphabetLetter } from "@/lib/utils";
 import { transformMessageIntoProviderMessage } from "@/lib/playground";
 import PlaygroundOutputLoader from "@/components/pages/PlaygroundPage/PlaygroundOutputs/PlaygroundOutputLoader/PlaygroundOutputLoader";
 import useCreateOutputTraceAndSpan from "@/api/playground/useCreateOutputTraceAndSpan";
+import useAppStore from "@/store/AppStore";
 
 interface PlaygroundOutputProps {
   model: PLAYGROUND_MODEL | "";
@@ -31,6 +32,8 @@ export interface PlaygroundOutputRef {
 
 const PlaygroundOutput = forwardRef<PlaygroundOutputRef, PlaygroundOutputProps>(
   ({ model, messages, index, configs }, ref) => {
+    const workspaceName = useAppStore((state) => state.activeWorkspaceName);
+
     const id = useId();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -49,6 +52,7 @@ const PlaygroundOutput = forwardRef<PlaygroundOutputRef, PlaygroundOutputProps>(
       onAddChunk: setOutputText,
       onLoading: setIsLoading,
       onError: setError,
+      workspaceName,
     });
 
     const createOutputTraceAndSpan = useCreateOutputTraceAndSpan();
