@@ -1,0 +1,7 @@
+{
+  "data": {
+    "output": "abc",
+    "reference": "abc"
+  },
+  "code": "from typing import Any\n\nfrom opik.evaluation.metrics import base_metric, score_result\n\n\nclass InMemoryCustomEquals(base_metric.BaseMetric):\n    def __init__(\n        self,\n        name: str = \"my_custom_equals_metric\",\n    ):\n        super().__init__(\n            name=name,\n            track=False,\n        )\n\n    def score(\n        self, output: str, reference: str, **ignored_kwargs: Any\n    ) -> score_result.ScoreResult:\n        value = 1.0 if output == reference else 0.0\n        return [score_result.ScoreResult(value=value, name=self.name), score_result.ScoreResult(value=0.5, name=self.name)]"
+}
